@@ -4,13 +4,6 @@ using System.Threading;
 
 namespace Zoo
 {
-    /// <summary>
-    ///Пользователь запускает приложение и перед ним находится меню, 
-    ///в котором он может выбрать, к какому вольеру подойти. 
-    ///При приближении к вольеру, пользователю выводится информация о том, 
-    ///что это за вольер, сколько животных там обитает, их пол и какой звук издает животное.
-    ///Вольеров в зоопарке может быть много, в решении нужно создать минимум 4 вольера.
-    /// </summary>
     internal class Program
     {
         static void Main(string[] args)
@@ -18,8 +11,6 @@ namespace Zoo
             Zoo zoo = new Zoo();
 
             zoo.Run();
-
-            Console.WriteLine("");
         }
     }
 
@@ -79,29 +70,8 @@ namespace Zoo
             {
                 DrowCommandsMenu();
                 DrowExitCommandMenu();
-
-
-
-                switch (Console.ReadKey().Key)
-                {
-                    case ConsoleKey.DownArrow:
-                        HighlightNextCommant();
-                        break;
-                    case ConsoleKey.UpArrow:
-                        HighlightPreviousCommant();
-                        break;
-                    case ConsoleKey.Enter:
-                        СomeToAviary(_choicedCommand, ref isWantExit);
-                        break;
-                }
-
-                if ((_position == null) == false)
-                {
-                    Console.Clear();
-                    _position.ShowDescription(_cages);
-                    Console.ReadKey();
-                    _position = null;
-                }
+                ExecuteNavigation(ref isWantExit);
+                ShowDescription();
 
                 Console.Clear();
             }
@@ -137,6 +107,33 @@ namespace Zoo
             else
             {
                 Console.WriteLine($"\nВыход\n");
+            }
+        }
+
+        private void ExecuteNavigation(ref bool isWantExit)
+        {
+            switch (Console.ReadKey().Key)
+            {
+                case ConsoleKey.DownArrow:
+                    HighlightNextCommant();
+                    break;
+                case ConsoleKey.UpArrow:
+                    HighlightPreviousCommant();
+                    break;
+                case ConsoleKey.Enter:
+                    СomeToAviary(_choicedCommand, ref isWantExit);
+                    break;
+            }
+        }
+
+        private void ShowDescription()
+        {
+            if ((_position == null) == false)
+            {
+                Console.Clear();
+                _position.ShowDescription(_cages);
+                Console.ReadKey();
+                _position = null;
             }
         }
 
