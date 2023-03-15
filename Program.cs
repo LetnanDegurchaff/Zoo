@@ -72,34 +72,15 @@ namespace Zoo
                     $"здесь вы можете посмотреть на животных, " +
                     $"послушать их и узнать интересную информацию о них\n");
 
+            Console.ReadKey();
+            Console.Clear();
+
             while (isWantExit == false)
             {
-                for (int i = 0; i < _cages.Count; i++)
-                {
-                    if (i == _choicedCommand)
-                    {
-                        ConsoleColor consoleColor = Console.ForegroundColor;
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine(_cages[i].AnimalType + "\n");
-                        Console.ForegroundColor = consoleColor;
-                    }
-                    else
-                    {
-                        Console.WriteLine(_cages[i].AnimalType + "\n");
-                    }
-                }
+                DrowCommandsMenu();
+                DrowExitCommandMenu();
 
-                if (_choicedCommand == _cages.Count)
-                {
-                    ConsoleColor consoleColor = Console.ForegroundColor;
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Выход\n");
-                    Console.ForegroundColor = consoleColor;
-                }
-                else
-                {
-                    Console.WriteLine("Выход\n");
-                }
+
 
                 switch (Console.ReadKey().Key)
                 {
@@ -116,12 +97,46 @@ namespace Zoo
 
                 if ((_position == null) == false)
                 {
+                    Console.Clear();
                     _position.ShowDescription(_cages);
                     Console.ReadKey();
                     _position = null;
                 }
 
                 Console.Clear();
+            }
+        }
+
+        private void DrowCommandsMenu()
+        {
+            for (int i = 0; i < _cages.Count; i++)
+            {
+                if (i == _choicedCommand)
+                {
+                    ConsoleColor consoleColor = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine(_cages[i].AnimalType + "\n");
+                    Console.ForegroundColor = consoleColor;
+                }
+                else
+                {
+                    Console.WriteLine(_cages[i].AnimalType + "\n");
+                }
+            }
+        }
+
+        private void DrowExitCommandMenu()
+        {
+            if (_choicedCommand == _cages.Count)
+            {
+                ConsoleColor consoleColor = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"\nВыход\n");
+                Console.ForegroundColor = consoleColor;
+            }
+            else
+            {
+                Console.WriteLine($"\nВыход\n");
             }
         }
 
